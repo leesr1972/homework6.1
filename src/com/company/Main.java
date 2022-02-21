@@ -37,20 +37,36 @@ public class Main {
         System.out.println();
         int[] arr21 = {4, 9, 5};
         int[] arr22 = {9, 4, 9, 8, 4};
-        int arr23Length = arr21.length;
-        if (arr22.length < arr21.length) {
-            arr23Length = arr22.length;
+        int arr23Length = 0;
+        int minLength = arr21.length;
+        if (minLength > arr22.length) {
+            minLength = arr22.length;
         }
-        int j = 0;
-        for (int k = 1; k < arr23Length - 1; k++) {
-            if (arr21[k] == arr22[k] || arr1[k] == arr22[k + 1] || arr21[k] == arr22[k-1]) {
-                int[] arr23 = new int[k];
-                arr23[j] = arr21[k];
-                j = j + 1;
+        for (int k = 0; k < minLength - 1; k++) {
+            if (arr21[k] == arr22[k]) {
+                arr23Length = arr23Length + 1;
             }
-            else continue;
+            if (arr21[k] == arr22[k + 1] && arr21[k+1] == arr22[k]) {
+                arr23Length = arr23Length + 2;
+            }
+            if (arr21[minLength - 1] == arr22[minLength - 1]) {
+                arr23Length = arr23Length + 1;
+            }
         }
-        if (arr23 == null) {
+        int[] arr23 = new int[arr23Length];
+        for (int n = 0; n < minLength - 1; n++) {
+            if (arr21[n] == arr22[n]) {
+                arr23[n] = arr21[n];
+            }
+            if (arr21[n] == arr22[n+1] && arr21[n+1] == arr22[n]) {
+                arr23[n] = arr21[n];
+                arr23[n+1] = arr21[n+1];
+            }
+        }
+        if (arr21[minLength - 1] == arr22[minLength - 1]) {
+            arr23[arr23Length-1] = arr21[minLength-1];
+        }
+        if (arr23Length == 0) {
             System.out.println("В Ваших массивах нет пересечений.");
         }
         else System.out.println("Массив пересечений " + Arrays.toString(arr23));
